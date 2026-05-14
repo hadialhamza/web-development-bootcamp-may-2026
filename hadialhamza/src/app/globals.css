@@ -136,6 +136,7 @@
   /* Fonts */
   --font-heading: var(--font-plus-jakarta-sans);
   --font-body: var(--font-dm-sans);
+  --font-logo: var(--font-alegreya);
 
   /* Brand colors */
   --color-primary: var(--primary);

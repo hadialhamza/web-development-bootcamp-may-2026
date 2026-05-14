@@ -1,8 +1,9 @@
+import Logo from "@/components/ui/Logo";
+
 export default function Home() {
   return (
-    <main>
-      <h1>Hello, welcome to SpendSentry</h1>
-      <p>Your smart personal expense tracker.</p>
+    <main className="">
+      <Logo />
     </main>
   );
 }
