@@ -13,7 +13,7 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "SpendSentry",
+  title: "Spend Sentry",
   description: "Smart Personal Expense Tracker",
 };
 
