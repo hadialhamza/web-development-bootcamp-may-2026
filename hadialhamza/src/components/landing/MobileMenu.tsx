@@ -39,9 +39,9 @@ export default function MobileMenu({
           >
             <div className="flex flex-col h-full">
               <div className="flex items-center justify-between mb-10">
-                <div className="scale-90 origin-left">
+                <Link href="/" className="scale-90 origin-left">
                   <Logo />
-                </div>
+                </Link>
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
                   <Button

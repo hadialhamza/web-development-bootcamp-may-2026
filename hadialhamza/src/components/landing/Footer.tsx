@@ -69,7 +69,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand Info */}
           <div className="col-span-2 space-y-6">
-            <Logo />
+            <Link href="/">
+              <Logo />
+            </Link>
             <p className="text-muted-foreground max-w-xs text-sm leading-relaxed font-medium">
               SpendSentry is a modern personal finance tracker designed to help
               you monitor income, expenses, and gain deep financial insights.

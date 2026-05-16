@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import MobileMenu from "./MobileMenu";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+import UserDropdown from "@/components/ui/UserDropdown";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
@@ -19,6 +21,9 @@ const NAV_ITEMS = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Mock login state for demonstration
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +44,9 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center">
-          <Logo className="transition-transform duration-300 hover:scale-[1.02]" />
+          <Link href="/">
+            <Logo className="transition-transform duration-300 hover:scale-[1.02]" />
+          </Link>
         </div>
         <nav className="hidden lg:flex items-center gap-10">
           {NAV_ITEMS.map((item) => (
@@ -55,10 +62,22 @@ export default function Navbar() {
 
         <div className="hidden lg:flex items-center gap-3">
           <ThemeToggle />
-          <Button variant="outline">Login</Button>
-          <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
-            Get Started
-          </Button>
+          {isLoggedIn ? (
+            <UserDropdown 
+              user={{
+                name: "Hadi Al Hamza",
+                email: "hamzaglory@gmail.com",
+                role: "Premium Plan"
+              }}
+            />
+          ) : (
+            <>
+              <Button variant="outline">Login</Button>
+              <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
+                Get Started
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Toggle */}
