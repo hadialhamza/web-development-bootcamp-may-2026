@@ -161,7 +161,7 @@ git clone https://github.com/hadialhamza/web-development-bootcamp-may-2026.git
 ### 2. Navigate Into Project
 
 ```bash
-cd web-development-bootcamp-may-2026
+cd web-development-bootcamp-may-2026/hadialhamza
 ```
 
 ---
@@ -179,12 +179,11 @@ npm install
 Create a `.env.local` file:
 
 ```env
-MONGODB_URI=your_mongodb_uri
-
-AUTH_SECRET=your_auth_secret
-
-AUTH_GOOGLE_ID=your_google_client_id
-AUTH_GOOGLE_SECRET=your_google_client_secret
+MONGODB_URI=<your_mongo_db_uri>
+NEXTAUTH_SECRET=<your_auth_secret>
+NEXTAUTH_URL=<your_app_url>
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=<your_cloud_name>
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=<your_upload_preset>
 ```
 
 ---
@@ -235,9 +234,9 @@ Optional features planned for future development:
 
 ## 👨💻 Developer
 
-### Hamza
+### Hadi Al Hamza
 
-Frontend Web Developer  
+Full-Stack Developer  
 React • Next.js • MERN Stack
 
 - GitHub: https://github.com/hadialhamza
