@@ -19,11 +19,18 @@ const buttonVariants = cva(
           "bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
         danger:
           "bg-destructive text-destructive-foreground shadow-md hover:bg-destructive-hover",
-        icon: "w-11 px-0 bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
+        icon: "bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground",
+      },
+      size: {
+        sm: "h-9 px-4 text-xs",
+        md: "h-11 px-6 text-sm",
+        lg: "h-14 px-10 text-base",
+        icon: "h-11 w-11 px-0",
       },
     },
     defaultVariants: {
       variant: "primary",
+      size: "md",
     },
   },
 );
@@ -37,12 +44,13 @@ interface ButtonProps
 const Button = ({
   className,
   variant,
+  size,
   icon,
   isLoading,
   children,
   ...props
 }: ButtonProps) => {
-  const isIcon = variant === "icon";
+  const isIcon = variant === "icon" || size === "icon";
 
   return (
     <motion.button
@@ -54,7 +62,7 @@ const Button = ({
         hover: { scale: 1.03 },
       }}
       transition={{ type: "spring", stiffness: 300 }}
-      className={cn(buttonVariants({ variant, className }))}
+      className={cn(buttonVariants({ variant, size, className }))}
       disabled={isLoading || props.disabled}
       {...props}
     >
