@@ -1,16 +1,9 @@
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
+import MarketingShell from "@/components/landing/MarketingShell";
 
 export default function MarketingLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <>
-      <Navbar />
-      {children}
-      <Footer />
-    </>
-  );
+  return <MarketingShell>{children}</MarketingShell>;
 }

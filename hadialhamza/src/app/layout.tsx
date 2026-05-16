@@ -34,10 +34,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} ${dmSans.variable} ${alegreya.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} ${dmSans.variable} ${alegreya.variable} antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-dvh flex flex-col">
         <AuthProvider>
           <ThemeProvider
             attribute="class"

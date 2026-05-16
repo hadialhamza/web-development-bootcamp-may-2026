@@ -206,7 +206,6 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
-  scroll-behavior: smooth;
 }
 
 h1,
@@ -226,6 +225,7 @@ html.dark body {
 
 html {
   color-scheme: light;
+  scroll-behavior: smooth;
 }
 
 /* Scrollbar styling */

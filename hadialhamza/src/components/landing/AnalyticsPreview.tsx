@@ -154,7 +154,7 @@ export default function AnalyticsPreview() {
               </div>
 
               {/* Real Chart Component */}
-              <div className="relative h-80 w-full">
+              <div className="relative min-h-80 h-80 w-full">
                 <AnalyticsChart />
               </div>
 

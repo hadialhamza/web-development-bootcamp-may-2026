@@ -38,11 +38,6 @@ const socials = [
     href: "mailto:hamzaglory@gmail.com",
     alt: "Gmail",
   },
-  {
-    icon: "/icons/facebook.svg",
-    href: "#",
-    alt: "Facebook",
-  },
 ];
 
 export default function Footer() {
@@ -112,28 +107,14 @@ export default function Footer() {
             © {new Date().getFullYear()} SpendSentry. All rights reserved.
           </p>
 
-          <div className="flex items-center gap-6">
-            <Link
-              href="#"
-              className="text-xs font-bold text-muted-foreground hover:text-foreground transition-colors uppercase tracking-widest"
-            >
-              Support
-            </Link>
-            <Link
-              href="#"
-              className="text-xs font-bold text-muted-foreground hover:text-foreground transition-colors uppercase tracking-widest"
-            >
-              Status
-            </Link>
-            <Button
-              variant="icon"
-              size="sm"
-              onClick={scrollToTop}
-              className="h-10 w-10 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-xl"
-            >
-              <ArrowUp className="w-5 h-5" />
-            </Button>
-          </div>
+          <Button
+            variant="icon"
+            size="sm"
+            onClick={scrollToTop}
+            className="h-10 w-10 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-xl"
+          >
+            <ArrowUp className="w-5 h-5" />
+          </Button>
         </div>
       </div>
 

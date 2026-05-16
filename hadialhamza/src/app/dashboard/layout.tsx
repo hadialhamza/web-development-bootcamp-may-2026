@@ -16,14 +16,14 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-muted/20 flex">
       {/* Sidebar - Desktop */}
-      <div className="hidden lg:block transition-all duration-300">
+      <div className="hidden lg:block">
         <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       </div>
 
       {/* Sidebar - Mobile Overlay */}
       <div
         className={cn(
-          "fixed inset-0 bg-background/60 backdrop-blur-sm z-50 lg:hidden transition-opacity duration-300",
+          "fixed inset-0 bg-black/50 backdrop-blur-sm z-50 lg:hidden transition-opacity duration-300",
           isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none",
         )}
         onClick={() => setIsMobileMenuOpen(false)}
@@ -38,13 +38,15 @@ export default function DashboardLayout({
         <Sidebar
           isCollapsed={false}
           setIsCollapsed={() => setIsMobileMenuOpen(false)}
+          isMobile={true}
+          onMobileClose={() => setIsMobileMenuOpen(false)}
         />
       </div>
 
       {/* Main Content */}
       <div
         className={cn(
-          "flex-1 flex flex-col min-w-0 transition-all duration-300",
+          "flex-1 flex flex-col min-w-0 transition-[margin] duration-300 ease-in-out",
           isCollapsed ? "lg:ml-20" : "lg:ml-64",
         )}
       >

@@ -10,7 +10,7 @@ export default function GlobalLoader() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
-      className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-background"
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
     >
       {/* Animated Background Gradients */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
