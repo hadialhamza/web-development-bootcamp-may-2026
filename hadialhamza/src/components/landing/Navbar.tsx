@@ -72,7 +72,9 @@ export default function Navbar() {
             />
           ) : (
             <>
-              <Button variant="outline">Login</Button>
+              <Link href="/login">
+                <Button variant="outline">Login</Button>
+              </Link>
               <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
                 Get Started
               </Button>

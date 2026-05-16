@@ -6,6 +6,7 @@ import NavLink from "@/components/ui/NavLink";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Logo from "@/components/ui/Logo";
+import Link from "next/link";
 
 interface MobileMenuProps {
   isOpen: boolean;

@@ -5,12 +5,14 @@ interface LogoProps {
   className?: string;
   hideText?: boolean;
   hideTagline?: boolean;
+  inverted?: boolean;
 }
 
 export default function Logo({
   className,
   hideText = false,
   hideTagline = false,
+  inverted = false,
 }: LogoProps) {
   return (
     <div className={cn("inline-flex items-center select-none", className)}>
@@ -20,21 +22,21 @@ export default function Logo({
         alt="SpendSentry Logo icon"
         width={44}
         height={44}
-        className="object-contain shrink-0"
+        className={cn("object-contain shrink-0", inverted && "brightness-0 invert")}
         priority
       />
 
       {/* Text block */}
       {!hideText && (
         <div className="flex flex-col font-logo items-center">
-          <span className="font-bold text-3xl leading-none">
-            <span className="text-foreground">Spend</span>
-            <span className="text-primary">Sentry</span>
+          <span className={cn("font-bold text-3xl leading-none", inverted ? "text-white" : "text-foreground")}>
+            <span>Spend</span>
+            <span className={inverted ? "text-white/90" : "text-primary"}>Sentry</span>
           </span>
 
           {/* Tagline */}
           {!hideTagline && (
-            <span className="font-semibold uppercase text-primary text-[10px] tracking-widest mt-0.5">
+            <span className={cn("font-semibold uppercase text-[10px] tracking-widest mt-0.5", inverted ? "text-white/60" : "text-primary")}>
               Track ● Analyze ● Save
             </span>
           )}
