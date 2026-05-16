@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Link from "next/link";
 import { TrendingUp, ArrowUpRight, Target, BrainCircuit } from "lucide-react";
 import SectionTitle from "@/components/ui/SectionTitle";
 import AnalyticsChart from "@/components/charts/AnalyticsChart";
@@ -110,13 +111,15 @@ export default function AnalyticsPreview() {
               transition={{ delay: 0.4 }}
               className="pt-4"
             >
-              <Button
-                variant="primary"
-                size="lg"
-                icon={<BrainCircuit className="w-5 h-5" />}
-              >
-                View Full Analytics
-              </Button>
+              <Link href="/analytics">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  icon={<BrainCircuit className="w-5 h-5" />}
+                >
+                  View Full Analytics
+                </Button>
+              </Link>
             </motion.div>
           </div>
 

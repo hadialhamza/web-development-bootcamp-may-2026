@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import Link from "next/link";
 import Logo from "@/components/ui/Logo";
 
 interface AuthSidebarProps {
@@ -9,9 +8,13 @@ interface AuthSidebarProps {
   subtitle?: string;
 }
 
-export default function AuthSidebar({ 
-  title = <>Track your expenses with <span className="text-primary">precision.</span></>,
-  subtitle = "Join thousands of users who have transformed their financial life with SpendSentry's intelligent tracking and analytics."
+export default function AuthSidebar({
+  title = (
+    <>
+      Track your expenses with <span className="text-primary">precision.</span>
+    </>
+  ),
+  subtitle = "Join thousands of users who have transformed their financial life with SpendSentry's intelligent tracking and analytics.",
 }: AuthSidebarProps) {
   return (
     <div className="hidden lg:flex lg:w-1/2 relative bg-slate-950 overflow-hidden items-center justify-center p-12">
@@ -60,9 +63,6 @@ export default function AuthSidebar({
       {/* Decorative Corner Text */}
       <div className="absolute bottom-12 left-12 right-12 flex justify-between items-center text-slate-500 text-[10px] font-black uppercase tracking-[0.2em]">
         <span>SpendSentry © 2026</span>
-        <Link href="#" className="hover:text-primary transition-colors">
-          Privacy Policy
-        </Link>
       </div>
     </div>
   );

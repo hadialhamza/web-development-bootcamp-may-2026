@@ -1,5 +1,7 @@
 "use client";
 
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -12,6 +14,9 @@ const benefits = [
 ];
 
 export default function CTA() {
+  const { status } = useSession();
+  const isLoggedIn = status === "authenticated";
+
   return (
     <section className="py-24 lg:py-32 relative overflow-hidden">
       {/* Background Ornaments */}
@@ -29,12 +34,13 @@ export default function CTA() {
           className="relative z-10 p-10 lg:p-20 rounded-[3rem] bg-foreground text-background overflow-hidden shadow-2xl"
         >
           {/* Decorative Pattern Overlay */}
-          <div 
-            className="absolute inset-0 opacity-[0.05] pointer-events-none" 
-            style={{ 
-              backgroundImage: "radial-gradient(var(--background) 1px, transparent 1px)", 
-              backgroundSize: "24px 24px" 
-            }} 
+          <div
+            className="absolute inset-0 opacity-[0.05] pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(var(--background) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
           />
 
           <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto">
@@ -50,35 +56,44 @@ export default function CTA() {
             </motion.div>
 
             <h2 className="text-4xl lg:text-6xl font-bold tracking-tight mb-8 leading-[1.1]">
-              Ready to take control of your <span className="text-primary">financial future?</span>
+              Ready to take control of your{" "}
+              <span className="text-primary">financial future?</span>
             </h2>
 
             <p className="text-lg lg:text-xl text-background/70 max-w-2xl mb-12 font-medium leading-relaxed">
-              Join thousands of users who are already mastering their money with SpendSentry. 
-              Start your journey towards financial freedom in less than 2 minutes.
+              Join thousands of users who are already mastering their money with
+              SpendSentry. Start your journey towards financial freedom in less
+              than 2 minutes.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 mb-12">
-              <Button 
-                variant="primary" 
-                size="lg"
-                className="h-16 px-10 text-lg shadow-xl shadow-primary/20"
-                icon={<ArrowRight className="w-5 h-5" />}
-              >
-                Create Free Account
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="h-16 px-10 text-lg border-background/20 text-background hover:bg-background hover:text-foreground"
-              >
-                Contact Sales
-              </Button>
+              <Link href={isLoggedIn ? "/dashboard" : "/login"}>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="px-10"
+                  icon={<ArrowRight className="w-5 h-5" />}
+                >
+                  {isLoggedIn ? "Go to Dashboard" : "Create Account"}
+                </Button>
+              </Link>
+              <Link href="/about-us">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="px-10 border-background/20 text-background hover:bg-background hover:text-foreground"
+                >
+                  Contact Sales
+                </Button>
+              </Link>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 w-full pt-8 border-t border-background/10">
               {benefits.map((benefit, index) => (
-                <div key={index} className="flex items-center justify-center gap-2 text-sm text-background/60 font-bold">
+                <div
+                  key={index}
+                  className="flex items-center justify-center gap-2 text-sm text-background/60 font-bold"
+                >
                   <CheckCircle2 className="w-4 h-4 text-primary" />
                   {benefit}
                 </div>

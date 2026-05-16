@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -129,14 +128,6 @@ export default function LoginPage() {
                     error={errors.password?.message}
                     disabled={isLoading}
                   />
-                  <div className="flex justify-end">
-                    <Link
-                      href="#"
-                      className="text-xs font-black text-primary hover:underline uppercase tracking-widest"
-                    >
-                      Forgot password?
-                    </Link>
-                  </div>
                 </div>
               </div>
 
@@ -144,7 +135,7 @@ export default function LoginPage() {
                 type="submit"
                 variant="primary"
                 size="lg"
-                className="w-full h-14 text-base shadow-xl shadow-primary/20"
+                className="w-full h-12 text-base shadow-md shadow-primary/20 mt-2"
                 icon={
                   isLoading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -157,64 +148,6 @@ export default function LoginPage() {
                 {isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border" />
-              </div>
-              <div className="relative flex justify-center text-[10px] uppercase tracking-[0.2em]">
-                <span className="bg-background px-4 text-muted-foreground font-black">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <Button
-                variant="ghost"
-                className="h-14 border-2 border-border hover:bg-muted/50 text-foreground font-black uppercase tracking-widest text-xs group"
-                icon={
-                  <Image
-                    src="/icons/github.svg"
-                    alt="GitHub"
-                    width={20}
-                    height={20}
-                    className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
-                  />
-                }
-                onClick={() =>
-                  customToast.info(
-                    "Coming Soon",
-                    "GitHub login will be available in the next update.",
-                  )
-                }
-                disabled={isLoading}
-              >
-                GitHub
-              </Button>
-              <Button
-                variant="ghost"
-                className="h-14 border-2 border-border hover:bg-muted/50 text-foreground font-black uppercase tracking-widest text-xs group"
-                icon={
-                  <Image
-                    src="/icons/gmail.svg"
-                    alt="Google"
-                    width={20}
-                    height={20}
-                    className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
-                  />
-                }
-                onClick={() =>
-                  customToast.info(
-                    "Coming Soon",
-                    "Google login will be available in the next update.",
-                  )
-                }
-                disabled={isLoading}
-              >
-                Google
-              </Button>
-            </div>
           </motion.div>
 
           <motion.p

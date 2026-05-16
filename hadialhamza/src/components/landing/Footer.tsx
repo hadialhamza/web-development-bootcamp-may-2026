@@ -7,19 +7,9 @@ import Logo from "@/components/ui/Logo";
 import { Button } from "@/components/ui/Button";
 
 const footerLinks = [
-  {
-    title: "Product",
-    links: [
-      { label: "Features", href: "/features" },
-      { label: "Analytics", href: "/analytics" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "About Us", href: "/about-us" },
-    ],
-  },
+  { label: "Features", href: "/features" },
+  { label: "Analytics", href: "/analytics" },
+  { label: "About Us", href: "/about-us" },
 ];
 
 const socials = [
@@ -46,64 +36,57 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-background border-t border-border pt-20 pb-10 overflow-hidden relative">
+    <footer className="bg-background border-t border-border pt-12 pb-8 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-10 mb-10">
           {/* Brand Info */}
-          <div className="col-span-2 space-y-6">
+          <div className="flex flex-col items-center lg:items-start space-y-4">
             <Link href="/">
               <Logo />
             </Link>
-            <p className="text-muted-foreground max-w-xs text-sm leading-relaxed font-medium">
-              SpendSentry is a modern personal finance tracker designed to help
-              you monitor income, expenses, and gain deep financial insights.
+            <p className="text-muted-foreground max-w-xs text-sm leading-relaxed font-medium text-center lg:text-left">
+              Advanced financial insights for modern teams and individuals.
             </p>
-            <div className="flex items-center gap-4">
-              {socials.map((social, index) => (
-                <Link
-                  key={index}
-                  href={social.href}
-                  className="p-2.5 rounded-xl bg-muted/50 hover:bg-primary/10 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 border border-border/50 group"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Image
-                    src={social.icon}
-                    alt={social.alt}
-                    width={20}
-                    height={20}
-                    className="w-5 h-5 opacity-70 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0"
-                  />
-                </Link>
-              ))}
-            </div>
           </div>
 
-          {/* Links Sections */}
-          {footerLinks.map((section, index) => (
-            <div key={index} className="space-y-6">
-              <h4 className="text-sm font-black uppercase tracking-widest text-foreground">
-                {section.title}
-              </h4>
-              <ul className="space-y-4">
-                {section.links.map((link, lIndex) => (
-                  <li key={lIndex}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          {/* Consolidated Links */}
+          <nav className="flex flex-wrap items-center justify-center gap-8">
+            {footerLinks.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                className="text-sm font-bold text-muted-foreground hover:text-primary transition-colors tracking-tight"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Socials */}
+          <div className="flex items-center gap-3">
+            {socials.map((social, index) => (
+              <Link
+                key={index}
+                href={social.href}
+                className="p-2.5 rounded-xl bg-muted/30 hover:bg-primary/10 transition-all duration-300 border border-border/50 group"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={social.icon}
+                  alt={social.alt}
+                  width={20}
+                  height={20}
+                  className="w-5 h-5 opacity-60 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0"
+                />
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">
+        <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-6">
+          <p className="text-[11px] font-black text-muted-foreground/60 uppercase tracking-[0.2em]">
             © {new Date().getFullYear()} SpendSentry. All rights reserved.
           </p>
 
@@ -111,7 +94,7 @@ export default function Footer() {
             variant="icon"
             size="sm"
             onClick={scrollToTop}
-            className="h-10 w-10 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-xl"
+            className="h-10 w-10 bg-primary/10 text-primary hover:bg-primary hover:text-white rounded-xl transition-all duration-300"
           >
             <ArrowUp className="w-5 h-5" />
           </Button>
@@ -119,7 +102,7 @@ export default function Footer() {
       </div>
 
       {/* Decorative Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-150 h-75 bg-primary/5 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-150 h-50 bg-primary/5 rounded-full blur-[80px] -z-10" />
     </footer>
   );
 }

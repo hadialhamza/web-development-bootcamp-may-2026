@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
@@ -184,7 +183,7 @@ export default function RegisterPage() {
                 />
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-center gap-3">
                 <input
                   type="checkbox"
                   id="terms"
@@ -195,21 +194,7 @@ export default function RegisterPage() {
                   htmlFor="terms"
                   className="text-xs text-muted-foreground font-medium leading-relaxed"
                 >
-                  I agree to the{" "}
-                  <Link
-                    href="#"
-                    className="text-primary font-bold hover:underline"
-                  >
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="#"
-                    className="text-primary font-bold hover:underline"
-                  >
-                    Privacy Policy
-                  </Link>
-                  .
+                  I agree to the Terms of Services and Privacy Policy .
                 </label>
               </div>
 
@@ -217,7 +202,7 @@ export default function RegisterPage() {
                 type="submit"
                 variant="primary"
                 size="lg"
-                className="w-full h-14 text-base shadow-xl shadow-primary/20"
+                className="w-full h-12 text-base shadow-lg shadow-primary/20"
                 icon={
                   isLoading ? (
                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -230,64 +215,6 @@ export default function RegisterPage() {
                 {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t border-border" />
-              </div>
-              <div className="relative flex justify-center text-[10px] uppercase tracking-[0.2em]">
-                <span className="bg-background px-4 text-muted-foreground font-black">
-                  Or sign up with
-                </span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <Button
-                variant="ghost"
-                className="h-14 border-2 border-border hover:bg-muted/50 text-foreground font-black uppercase tracking-widest text-xs group"
-                icon={
-                  <Image
-                    src="/icons/github.svg"
-                    alt="GitHub"
-                    width={20}
-                    height={20}
-                    className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
-                  />
-                }
-                onClick={() =>
-                  customToast.info(
-                    "Coming Soon",
-                    "GitHub signup will be available in the next update.",
-                  )
-                }
-                disabled={isLoading}
-              >
-                GitHub
-              </Button>
-              <Button
-                variant="ghost"
-                className="h-14 border-2 border-border hover:bg-muted/50 text-foreground font-black uppercase tracking-widest text-xs group"
-                icon={
-                  <Image
-                    src="/icons/gmail.svg"
-                    alt="Google"
-                    width={20}
-                    height={20}
-                    className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
-                  />
-                }
-                onClick={() =>
-                  customToast.info(
-                    "Coming Soon",
-                    "Google signup will be available in the next update.",
-                  )
-                }
-                disabled={isLoading}
-              >
-                Google
-              </Button>
-            </div>
           </motion.div>
 
           <motion.p
