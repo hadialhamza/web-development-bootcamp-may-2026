@@ -1,15 +1,69 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { motion } from "motion/react";
-import { ArrowLeft, Mail, ArrowRight } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { customToast } from "@/components/ui/customToast";
+import { ArrowLeft, Mail, ArrowRight, Loader2 } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import { Button } from "@/components/ui/Button";
 import InputGroup from "@/components/ui/InputGroup";
 import AuthSidebar from "@/components/auth/AuthSidebar";
 
+const loginSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(1, "Password is required"),
+});
+
+type LoginFormValues = z.infer<typeof loginSchema>;
+
 export default function LoginPage() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginFormValues) => {
+    setIsLoading(true);
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
+
+      if (result?.error) {
+        customToast.error("Authentication Failed", result.error);
+      } else {
+        customToast.success(
+          "Welcome back!",
+          "Redirecting you to the dashboard...",
+        );
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (error) {
+      customToast.error(
+        "Unexpected Error",
+        "Please check your connection and try again.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex bg-background overflow-hidden">
       <AuthSidebar />
@@ -55,21 +109,25 @@ export default function LoginPage() {
             transition={{ delay: 0.2 }}
             className="space-y-6"
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-4">
                 <InputGroup
                   label="Email address"
                   type="email"
                   placeholder="name@example.com"
                   icon={<Mail className="w-4 h-4" />}
-                  required
+                  {...register("email")}
+                  error={errors.email?.message}
+                  disabled={isLoading}
                 />
                 <div className="space-y-2">
                   <InputGroup
                     label="Password"
                     type="password"
                     placeholder="••••••••"
-                    required
+                    {...register("password")}
+                    error={errors.password?.message}
+                    disabled={isLoading}
                   />
                   <div className="flex justify-end">
                     <Link
@@ -83,12 +141,20 @@ export default function LoginPage() {
               </div>
 
               <Button
+                type="submit"
                 variant="primary"
                 size="lg"
                 className="w-full h-14 text-base shadow-xl shadow-primary/20"
-                icon={<ArrowRight className="w-5 h-5" />}
+                icon={
+                  isLoading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <ArrowRight className="w-5 h-5" />
+                  )
+                }
+                disabled={isLoading}
               >
-                Sign In
+                {isLoading ? "Signing in..." : "Sign In"}
               </Button>
             </form>
 
@@ -116,6 +182,13 @@ export default function LoginPage() {
                     className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
                   />
                 }
+                onClick={() =>
+                  customToast.info(
+                    "Coming Soon",
+                    "GitHub login will be available in the next update.",
+                  )
+                }
+                disabled={isLoading}
               >
                 GitHub
               </Button>
@@ -131,6 +204,13 @@ export default function LoginPage() {
                     className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
                   />
                 }
+                onClick={() =>
+                  customToast.info(
+                    "Coming Soon",
+                    "Google login will be available in the next update.",
+                  )
+                }
+                disabled={isLoading}
               >
                 Google
               </Button>

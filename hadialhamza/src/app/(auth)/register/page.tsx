@@ -1,19 +1,106 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { motion } from "motion/react";
-import { ArrowLeft, Mail, ArrowRight, User } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { customToast } from "@/components/ui/customToast";
+import { ArrowLeft, Mail, ArrowRight, User, Loader2 } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import { Button } from "@/components/ui/Button";
 import InputGroup from "@/components/ui/InputGroup";
 import AuthSidebar from "@/components/auth/AuthSidebar";
 
+const registerSchema = z
+  .object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(8, "Password must be at least 8 characters"),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+type RegisterFormValues = z.infer<typeof registerSchema>;
+
 export default function RegisterPage() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const onSubmit = async (data: RegisterFormValues) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          password: data.password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        customToast.error(
+          "Registration Failed",
+          result.message || "Something went wrong",
+        );
+      } else {
+        customToast.success(
+          "Account Created",
+          "Welcome to SpendSentry! Signing you in...",
+        );
+
+        // Auto-login after signup
+        const loginResult = await signIn("credentials", {
+          redirect: false,
+          email: data.email,
+          password: data.password,
+        });
+
+        if (loginResult?.error) {
+          router.push("/login");
+        } else {
+          router.push("/dashboard");
+          router.refresh();
+        }
+      }
+    } catch (error) {
+      customToast.error(
+        "Unexpected Error",
+        "Please check your connection and try again.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex bg-background overflow-hidden">
-      <AuthSidebar 
-        title={<>Build your financial <span className="text-primary">freedom</span> today.</>}
+      <AuthSidebar
+        title={
+          <>
+            Build your financial <span className="text-primary">freedom</span>{" "}
+            today.
+          </>
+        }
         subtitle="Create your account in seconds and start taking control of your financial future with our powerful tracking tools."
       />
 
@@ -58,56 +145,89 @@ export default function RegisterPage() {
             transition={{ delay: 0.2 }}
             className="space-y-6"
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div className="space-y-4">
                 <InputGroup
                   label="Full Name"
                   type="text"
                   placeholder="John Doe"
                   icon={<User className="w-4 h-4" />}
-                  required
+                  {...register("name")}
+                  error={errors.name?.message}
+                  disabled={isLoading}
                 />
                 <InputGroup
                   label="Email address"
                   type="email"
                   placeholder="name@example.com"
                   icon={<Mail className="w-4 h-4" />}
-                  required
+                  {...register("email")}
+                  error={errors.email?.message}
+                  disabled={isLoading}
                 />
                 <InputGroup
                   label="Password"
                   type="password"
                   placeholder="••••••••"
-                  required
+                  {...register("password")}
+                  error={errors.password?.message}
+                  disabled={isLoading}
                   helperText="Must be at least 8 characters."
                 />
                 <InputGroup
                   label="Confirm Password"
                   type="password"
                   placeholder="••••••••"
-                  required
+                  {...register("confirmPassword")}
+                  error={errors.confirmPassword?.message}
+                  disabled={isLoading}
                 />
               </div>
 
               <div className="flex items-start gap-3">
-                <input 
-                  type="checkbox" 
-                  id="terms" 
-                  className="mt-1 accent-primary h-4 w-4 rounded-lg border-border" 
-                  required 
+                <input
+                  type="checkbox"
+                  id="terms"
+                  className="mt-1 accent-primary h-4 w-4 rounded-lg border-border"
+                  required
                 />
-                <label htmlFor="terms" className="text-xs text-muted-foreground font-medium leading-relaxed">
-                  I agree to the <Link href="#" className="text-primary font-bold hover:underline">Terms of Service</Link> and <Link href="#" className="text-primary font-bold hover:underline">Privacy Policy</Link>.
+                <label
+                  htmlFor="terms"
+                  className="text-xs text-muted-foreground font-medium leading-relaxed"
+                >
+                  I agree to the{" "}
+                  <Link
+                    href="#"
+                    className="text-primary font-bold hover:underline"
+                  >
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="#"
+                    className="text-primary font-bold hover:underline"
+                  >
+                    Privacy Policy
+                  </Link>
+                  .
                 </label>
               </div>
 
               <Button
+                type="submit"
                 variant="primary"
                 size="lg"
                 className="w-full h-14 text-base shadow-xl shadow-primary/20"
-                icon={<ArrowRight className="w-5 h-5" />}
+                icon={
+                  isLoading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <ArrowRight className="w-5 h-5" />
+                  )
+                }
+                disabled={isLoading}
               >
-                Create Account
+                {isLoading ? "Creating Account..." : "Create Account"}
               </Button>
             </form>
 
@@ -135,6 +255,13 @@ export default function RegisterPage() {
                     className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
                   />
                 }
+                onClick={() =>
+                  customToast.info(
+                    "Coming Soon",
+                    "GitHub signup will be available in the next update.",
+                  )
+                }
+                disabled={isLoading}
               >
                 GitHub
               </Button>
@@ -150,6 +277,13 @@ export default function RegisterPage() {
                     className="w-5 h-5 transition-transform duration-300 group-hover:scale-110"
                   />
                 }
+                onClick={() =>
+                  customToast.info(
+                    "Coming Soon",
+                    "Google signup will be available in the next update.",
+                  )
+                }
+                disabled={isLoading}
               >
                 Google
               </Button>

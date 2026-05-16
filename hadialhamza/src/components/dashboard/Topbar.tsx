@@ -1,10 +1,10 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { Search, Bell, Menu } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { ThemeToggle } from "../ui/ThemeToggle";
-
 import UserDropdown from "../ui/UserDropdown";
 
 interface TopbarProps {
@@ -13,6 +13,20 @@ interface TopbarProps {
 }
 
 export default function Topbar({ onMenuClick, className }: TopbarProps) {
+  const { data: session } = useSession();
+  
+  const userName = session?.user?.name || "User";
+  const userEmail = session?.user?.email || "";
+  const userRole = session?.user?.role === "admin" ? "Administrator" : "Free Plan";
+
+  const today = new Date();
+  const formattedDate = today.toLocaleDateString('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
   return (
     <header 
       className={cn(
@@ -31,8 +45,8 @@ export default function Topbar({ onMenuClick, className }: TopbarProps) {
         </Button>
         
         <div className="hidden sm:flex flex-col">
-          <h2 className="text-lg font-bold tracking-tight text-foreground leading-none">Welcome back, Hadi!</h2>
-          <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">Saturday, 16 May 2026</p>
+          <h2 className="text-lg font-bold tracking-tight text-foreground leading-none">Welcome back, {userName.split(' ')[0]}!</h2>
+          <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest mt-1">{formattedDate}</p>
         </div>
       </div>
 
@@ -58,15 +72,16 @@ export default function Topbar({ onMenuClick, className }: TopbarProps) {
             <Bell className="w-5 h-5" />
             <span className="absolute top-2 right-2.5 w-2 h-2 bg-primary rounded-full border-2 border-background" />
           </Button>
-
+ 
           <div className="h-8 w-px bg-border mx-2 hidden sm:block" />
 
           {/* User Profile Dropdown */}
           <UserDropdown 
             user={{
-              name: "Hadi Al Hamza",
-              email: "hamzaglory@gmail.com",
-              role: "Premium Plan"
+              name: userName,
+              email: userEmail,
+              role: userRole,
+              image: session?.user?.image || undefined
             }}
           />
         </div>

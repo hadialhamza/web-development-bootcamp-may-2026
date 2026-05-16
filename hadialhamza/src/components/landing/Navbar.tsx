@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Menu, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { Menu, LogIn } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Logo from "@/components/ui/Logo";
 import NavLink from "@/components/ui/NavLink";
 import { Button } from "@/components/ui/Button";
@@ -19,27 +20,19 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
+  const { data: session, status } = useSession();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Mock login state for demonstration
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const isLoggedIn = status === "authenticated";
+
+  const dynamicNavItems = isLoggedIn
+    ? [...NAV_ITEMS, { label: "Dashboard", href: "/dashboard" }]
+    : NAV_ITEMS;
 
   return (
     <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-in-out px-4",
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border py-2 shadow-sm"
-          : "bg-transparent py-5",
+        "fixed top-0 left-0 right-0 z-40 px-4 py-2 transition-all duration-300 bg-background/70 backdrop-blur-sm border-b border-border shadow-sm",
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -48,8 +41,9 @@ export default function Navbar() {
             <Logo className="transition-transform duration-300 hover:scale-[1.02]" />
           </Link>
         </div>
+
         <nav className="hidden lg:flex items-center gap-10">
-          {NAV_ITEMS.map((item) => (
+          {dynamicNavItems.map((item) => (
             <NavLink
               key={item.href}
               href={item.href}
@@ -62,25 +56,29 @@ export default function Navbar() {
 
         <div className="hidden lg:flex items-center gap-3">
           <ThemeToggle />
+
           {isLoggedIn ? (
-            <UserDropdown 
+            <UserDropdown
               user={{
-                name: "Hadi Al Hamza",
-                email: "hamzaglory@gmail.com",
-                role: "Premium Plan"
+                name: session.user?.name || "User",
+                email: session.user?.email || "",
+                role:
+                  session.user?.role === "admin"
+                    ? "Administrator"
+                    : "Free Plan",
+                image: session.user?.image || undefined,
               }}
             />
           ) : (
-            <>
-              <Link href="/login">
-                <Button variant="outline">Login</Button>
-              </Link>
-              <Link href="/register">
-                <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
-                  Get Started
-                </Button>
-              </Link>
-            </>
+            <Link href="/login">
+              <Button
+                variant="primary"
+                className="px-8"
+                icon={<LogIn className="w-4 h-4" />}
+              >
+                Login
+              </Button>
+            </Link>
           )}
         </div>
 
@@ -98,7 +96,7 @@ export default function Navbar() {
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
-        navItems={NAV_ITEMS}
+        navItems={dynamicNavItems}
       />
     </header>
   );

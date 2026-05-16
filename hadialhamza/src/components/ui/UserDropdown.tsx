@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
+import { signOut } from "next-auth/react";
+import { customToast } from "./customToast";
 import {
   User,
   Settings,
@@ -112,7 +114,23 @@ export default function UserDropdown({ user, className }: UserDropdownProps) {
             </div>
 
             <div className="p-2 border-t border-border bg-muted/10">
-              <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-rose-500 hover:bg-rose-500/10 transition-all duration-200 group">
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  customToast.confirm(
+                    "Sign Out",
+                    "Are you sure you want to log out of your account?",
+                    () => {
+                      customToast.success(
+                        "Signed Out",
+                        "You have been successfully logged out.",
+                      );
+                      signOut({ callbackUrl: "/" });
+                    },
+                  );
+                }}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-rose-500 hover:bg-rose-500/10 transition-all duration-200 group"
+              >
                 <LogOut className="w-4 h-4" />
                 Logout
               </button>
