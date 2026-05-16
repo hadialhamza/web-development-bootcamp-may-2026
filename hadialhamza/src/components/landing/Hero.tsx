@@ -1,9 +1,11 @@
 "use client";
 
-import Image from "next/image";
+import Link from "next/link";
 import { motion } from "motion/react";
+import { useSession } from "next-auth/react";
 import { ArrowRight, Play, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import HeroSlider from "./HeroSlider";
 
 const features = [
   "No credit card required",
@@ -12,6 +14,9 @@ const features = [
 ];
 
 export default function Hero() {
+  const { status } = useSession();
+  const isLoggedIn = status === "authenticated";
+
   return (
     <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
       {/* Background Glows */}
@@ -66,24 +71,31 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-col sm:flex-row items-center gap-4 pt-4"
             >
-              <Button
-                variant="primary"
-                size="lg"
-                icon={<ArrowRight className="w-5 h-5" />}
+              <Link
+                href={isLoggedIn ? "/dashboard" : "/login"}
                 className="w-full sm:w-auto"
               >
-                Start Tracking Free
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full sm:w-auto group"
-                icon={
-                  <Play className="w-5 h-5 fill-primary text-primary group-hover:fill-primary-foreground transition-colors" />
-                }
-              >
-                Watch Demo
-              </Button>
+                <Button
+                  variant="primary"
+                  size="lg"
+                  icon={<ArrowRight className="w-5 h-5" />}
+                  className="w-full"
+                >
+                  {isLoggedIn ? "Go to Dashboard" : "Start Tracking Free"}
+                </Button>
+              </Link>
+              <Link href="/features" className="w-full sm:w-auto">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full group"
+                  icon={
+                    <Play className="w-5 h-5 fill-primary text-primary group-hover:fill-primary-foreground transition-colors" />
+                  }
+                >
+                  Explore Features
+                </Button>
+              </Link>
             </motion.div>
 
             <motion.div
@@ -104,7 +116,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Column: Mockup */}
+          {/* Right Column: Hero Slider */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9, x: 40 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
@@ -116,45 +128,7 @@ export default function Hero() {
             }}
             className="relative"
           >
-            {/* Mockup Frame/Shadow Effect */}
-            <div className="relative z-10 rounded-2xl overflow-hidden shadow-[0_32px_64px_-16px_rgba(16,185,129,0.2)] border border-border bg-card">
-              <Image
-                src="/mockups/dashboard.png"
-                alt="SpendSentry Dashboard Mockup"
-                width={1200}
-                height={800}
-                className="w-full h-auto"
-                priority
-              />
-
-              {/* Overlay Gradient for depth */}
-              <div className="absolute inset-0 bg-linear-to-tr from-primary/5 via-transparent to-transparent pointer-events-none" />
-            </div>
-
-            {/* Decorative Elements */}
-            <div className="absolute -top-12 -right-12 w-32 h-32 bg-primary/20 rounded-full blur-3xl -z-10" />
-            <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-primary/10 rounded-full blur-[100px] -z-10" />
-
-            {/* Floating Card UI (Decorative) */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-8 top-1/4 z-20 hidden lg:block p-4 bg-background/80 backdrop-blur-md rounded-xl border border-border shadow-xl"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                  <ArrowRight className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground font-bold uppercase tracking-wider">
-                    Savings
-                  </p>
-                  <p className="text-lg font-bold text-foreground">
-                    +$2,450.00
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+            <HeroSlider />
           </motion.div>
         </div>
       </div>
