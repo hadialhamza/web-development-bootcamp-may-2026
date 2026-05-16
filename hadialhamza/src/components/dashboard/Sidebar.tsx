@@ -11,7 +11,8 @@ import {
   Target, 
   ChevronLeft,
   ChevronRight,
-  LogOut
+  LogOut,
+  User
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Logo from "@/components/ui/Logo";
@@ -22,6 +23,7 @@ const NAV_ITEMS = [
   { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   { label: "Budgets", href: "/dashboard/budgets", icon: PieChart },
   { label: "Goals", href: "/dashboard/goals", icon: Target },
+  { label: "Profile", href: "/dashboard/profile", icon: User },
 ];
 
 interface SidebarProps {

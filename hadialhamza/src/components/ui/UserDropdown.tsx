@@ -50,6 +50,7 @@ export default function UserDropdown({ user, className }: UserDropdownProps) {
     { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
     { label: "Budgets", href: "/dashboard/budgets", icon: PieChart },
     { label: "Goals", href: "/dashboard/goals", icon: Target },
+    { label: "Profile", href: "/dashboard/profile", icon: User },
   ];
 
   return (
@@ -59,7 +60,12 @@ export default function UserDropdown({ user, className }: UserDropdownProps) {
         className="flex items-center gap-3 p-1.5 rounded-2xl hover:bg-muted/50 border border-transparent hover:border-border transition-all duration-300 group"
       >
         <div className="h-9 w-9 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20 overflow-hidden group-hover:scale-105 transition-transform duration-300">
-          <User className="w-5 h-5" />
+          {user.image ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img src={user.image} alt={user.name} className="w-full h-full object-cover" />
+          ) : (
+            <User className="w-5 h-5" />
+          )}
         </div>
         <div className="hidden sm:flex flex-col items-start leading-none gap-1 mr-1">
           <span className="text-sm font-black text-foreground">
@@ -88,8 +94,13 @@ export default function UserDropdown({ user, className }: UserDropdownProps) {
           >
             <div className="p-5 border-b border-border bg-muted/20">
               <div className="flex items-center gap-4">
-                <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-                  <User className="w-6 h-6" />
+                <div className="h-12 w-12 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20 overflow-hidden">
+                  {user.image ? (
+                    /* eslint-disable-next-line @next/next/no-img-element */
+                    <img src={user.image} alt={user.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <User className="w-6 h-6" />
+                  )}
                 </div>
                 <div className="flex flex-col min-w-0">
                   <p className="text-base font-black text-foreground truncate">
