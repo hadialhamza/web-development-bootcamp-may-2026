@@ -75,9 +75,11 @@ export default function Navbar() {
               <Link href="/login">
                 <Button variant="outline">Login</Button>
               </Link>
-              <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
-                Get Started
-              </Button>
+              <Link href="/register">
+                <Button variant="primary" icon={<ArrowRight className="w-4 h-4" />}>
+                  Get Started
+                </Button>
+              </Link>
             </>
           )}
         </div>
