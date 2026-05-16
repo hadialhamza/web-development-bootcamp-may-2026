@@ -9,7 +9,6 @@ import {
   PieChart, 
   BarChart3, 
   Target, 
-  Settings,
   ChevronLeft,
   ChevronRight,
   LogOut
@@ -23,7 +22,6 @@ const NAV_ITEMS = [
   { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   { label: "Budgets", href: "/dashboard/budgets", icon: PieChart },
   { label: "Goals", href: "/dashboard/goals", icon: Target },
-  { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];
 
 interface SidebarProps {

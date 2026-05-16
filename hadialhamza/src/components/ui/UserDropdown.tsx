@@ -7,8 +7,10 @@ import { signOut } from "next-auth/react";
 import { customToast } from "./customToast";
 import {
   User,
-  Settings,
-  CreditCard,
+  ArrowLeftRight,
+  PieChart,
+  BarChart3,
+  Target,
   LogOut,
   ChevronDown,
   LayoutDashboard,
@@ -44,9 +46,10 @@ export default function UserDropdown({ user, className }: UserDropdownProps) {
 
   const menuItems = [
     { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Profile", href: "/dashboard/profile", icon: User },
-    { label: "Settings", href: "/dashboard/settings", icon: Settings },
-    { label: "Billing", href: "/dashboard/billing", icon: CreditCard },
+    { label: "Transactions", href: "/dashboard/transactions", icon: ArrowLeftRight },
+    { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
+    { label: "Budgets", href: "/dashboard/budgets", icon: PieChart },
+    { label: "Goals", href: "/dashboard/goals", icon: Target },
   ];
 
   return (
