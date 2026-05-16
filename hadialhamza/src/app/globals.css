@@ -201,9 +201,6 @@
 }
 
 /* Base Style */
-* {
-  border-color: var(--border);
-}
 
 body {
   background: var(--background);
