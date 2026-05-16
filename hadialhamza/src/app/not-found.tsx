@@ -11,8 +11,8 @@ export default function NotFound() {
     <div className="min-h-screen flex flex-col items-center justify-center bg-background px-6 relative overflow-hidden">
       {/* Background Accents */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]" />
-        <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px]" />
       </div>
 
       <motion.div
@@ -45,7 +45,8 @@ export default function NotFound() {
           Lost in the Data?
         </h1>
         <p className="text-muted-foreground font-medium mb-10 leading-relaxed">
-          The page you&apos;re looking for doesn&apos;t exist or has been moved to a new vault. Let&apos;s get you back on track with your finances.
+          The page you&apos;re looking for doesn&apos;t exist or has been moved
+          to a new vault. Let&apos;s get you back on track with your finances.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
@@ -59,7 +60,7 @@ export default function NotFound() {
               Dashboard
             </Button>
           </Link>
-          
+
           <Button
             variant="outline"
             size="lg"

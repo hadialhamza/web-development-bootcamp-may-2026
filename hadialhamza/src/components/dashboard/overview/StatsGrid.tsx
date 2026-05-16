@@ -25,6 +25,9 @@ interface StatItemProps extends StatData {
   icon: React.ReactNode;
   delay: number;
   isLoading?: boolean;
+  colorClass: string;
+  bgClass: string;
+  gradientClass: string;
 }
 
 const StatCard = ({
@@ -35,30 +38,42 @@ const StatCard = ({
   icon,
   delay,
   isLoading,
+  colorClass,
+  bgClass,
+  gradientClass,
 }: StatItemProps) => (
   <motion.div
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.4 }}
-    className="bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all group relative overflow-hidden"
+    className={cn(
+      "bg-card border border-border p-6 rounded-2xl shadow-sm hover:shadow-md transition-all group relative overflow-hidden bg-linear-to-br",
+      gradientClass,
+    )}
   >
     <div className="flex justify-between items-start mb-4">
-      <div className="p-3 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+      <div
+        className={cn(
+          "p-3 rounded-xl transition-all duration-300 group-hover:scale-110",
+          bgClass,
+          colorClass,
+        )}
+      >
         {icon}
       </div>
       {!isLoading ? (
         <div
           className={cn(
-            "flex items-center gap-1 text-[10px] font-black px-2 py-1 rounded-full uppercase tracking-tighter",
+            "flex items-center gap-1 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-widest",
             trendUp
               ? "bg-emerald-500/10 text-emerald-500"
               : "bg-rose-500/10 text-rose-500",
           )}
         >
           {trendUp ? (
-            <ArrowUpRight className="w-3 h-3" />
+            <ArrowUpRight className="w-3.5 h-3.5" />
           ) : (
-            <ArrowDownRight className="w-3 h-3" />
+            <ArrowDownRight className="w-3.5 h-3.5" />
           )}
           {trend}
         </div>
@@ -66,8 +81,10 @@ const StatCard = ({
         <Skeleton className="w-12 h-5 rounded-full" />
       )}
     </div>
-    <div className="space-y-1">
-      <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{label}</p>
+    <div className="space-y-1 relative z-10">
+      <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
+        {label}
+      </p>
       <div className="flex items-center gap-2">
         {isLoading ? (
           <Skeleton className="h-8 w-24 rounded-lg" />
@@ -78,11 +95,14 @@ const StatCard = ({
         )}
       </div>
     </div>
-    
-    <div className="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-500 pointer-events-none">
-      <div className="scale-[3]">
-        {icon}
-      </div>
+
+    <div
+      className={cn(
+        "absolute right-2 -bottom-2 opacity-[0.15] group-hover:opacity-[0.3] group-hover:-translate-x-3 group-hover:-translate-y-3 transition-all duration-700 pointer-events-none",
+        colorClass,
+      )}
+    >
+      <div className="scale-[4] rotate-12">{icon}</div>
     </div>
   </motion.div>
 );
@@ -90,6 +110,29 @@ const StatCard = ({
 export default function StatsGrid() {
   const [stats, setStats] = useState<StatData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const cardThemes = [
+    {
+      color: "text-primary",
+      bg: "bg-primary/10",
+      gradient: "from-card to-primary/5",
+    },
+    {
+      color: "text-blue-500",
+      bg: "bg-blue-500/10",
+      gradient: "from-card to-blue-500/5",
+    },
+    {
+      color: "text-rose-500",
+      bg: "bg-rose-500/10",
+      gradient: "from-card to-rose-500/5",
+    },
+    {
+      color: "text-amber-500",
+      bg: "bg-amber-500/10",
+      gradient: "from-card to-amber-500/5",
+    },
+  ];
 
   const icons = [
     <Wallet key="wallet" className="w-5 h-5" />,
@@ -115,34 +158,40 @@ export default function StatsGrid() {
     };
 
     fetchStats();
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {isLoading ? (
-        Array.from({ length: 4 }).map((_, i) => (
-          <StatCard
-            key={`skeleton-${i}`}
-            label="Loading..."
-            value={0}
-            trend="0%"
-            trendUp={true}
-            icon={icons[i]}
-            delay={i * 0.1}
-            isLoading={true}
-          />
-        ))
-      ) : (
-        stats.map((stat, index) => (
-          <StatCard 
-            key={stat.label} 
-            {...stat} 
-            icon={icons[index % icons.length]} 
-            delay={index * 0.1} 
-          />
-        ))
-      )}
+      {isLoading
+        ? Array.from({ length: 4 }).map((_, i) => (
+            <StatCard
+              key={`skeleton-${i}`}
+              label="Loading..."
+              value={0}
+              trend="0%"
+              trendUp={true}
+              icon={icons[i]}
+              delay={i * 0.1}
+              isLoading={true}
+              colorClass={cardThemes[i].color}
+              bgClass={cardThemes[i].bg}
+              gradientClass={cardThemes[i].gradient}
+            />
+          ))
+        : stats.map((stat, index) => (
+            <StatCard
+              key={stat.label}
+              {...stat}
+              icon={icons[index % icons.length]}
+              delay={index * 0.1}
+              colorClass={cardThemes[index % cardThemes.length].color}
+              bgClass={cardThemes[index % cardThemes.length].bg}
+              gradientClass={cardThemes[index % cardThemes.length].gradient}
+            />
+          ))}
     </div>
   );
 }
