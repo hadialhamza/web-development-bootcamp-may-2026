@@ -1,36 +1,249 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+<img src="https://res.cloudinary.com/drxq8gxwh/image/upload/v1778950687/spend-sentry-logo_1_twm8aa.png" width="120" alt="Spend Sentry Logo" />
 
-First, run the development server:
+# Spend Sentry
+
+### Smart Personal Expense Tracker
+
+Track smarter. Spend wiser.
+
+<p align="center">
+  <a href="https://spend-sentry1.vercel.app/"><strong>Live Demo</strong></a> •
+  <a href="https://github.com/hadialhamza/web-development-bootcamp-may-2026"><strong>Repository</strong></a>
+</p>
+
+</div>
+
+---
+
+## 📌 Overview
+
+Spend Sentry is a modern full-stack personal finance and expense tracking platform built with Next.js 16 and MongoDB.
+
+The project focuses on delivering a clean production-style user experience with modern UI/UX, analytics-focused dashboards, budget management, authentication, and responsive performance optimized for both desktop and mobile devices.
+
+Unlike traditional beginner expense tracker projects, Spend Sentry emphasizes:
+
+- Modern product-level UI
+- Real-world dashboard experience
+- Financial analytics visualization
+- Reusable architecture
+- Scalable component structure
+- Clean developer experience
+- Production-ready frontend patterns
+
+---
+
+## 🖼️ Preview
+
+### Homepage
+
+![Spend Sentry Homepage](https://res.cloudinary.com/drxq8gxwh/image/upload/v1778950966/spendsentry_1_kt4g3y.png)
+
+---
+
+### Dashboard
+
+![Spend Sentry Dashboard](https://res.cloudinary.com/drxq8gxwh/image/upload/v1778950688/spend-sentry1-dashboard_vilf9y.png)
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication
+
+- Secure authentication system
+- Protected dashboard routes
+- Persistent user sessions
+
+### 💰 Expense Management
+
+- Add expenses
+- Edit expenses
+- Delete expenses
+- Categorize transactions
+- Track spending history
+
+### 📊 Analytics Dashboard
+
+- Monthly expense overview
+- Spending insights
+- Category breakdown
+- Financial activity visualization
+- Dynamic analytics cards
+
+### 🎯 Budget Tracking
+
+- Budget monitoring
+- Expense progress tracking
+- Spending alerts UI
+- Financial overview system
+
+### 🎨 Modern UI/UX
+
+- Fully responsive design
+- Dark / Light mode
+- Smooth animations
+- Reusable component architecture
+- Modern dashboard layout
+
+### ⚡ Performance
+
+- Optimized Next.js App Router structure
+- Server-side rendering support
+- Dynamic rendering
+- Fast page transitions
+- Optimized asset delivery
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- Lucide React
+
+### Backend
+
+- Next.js Server Actions
+- API Route Handlers
+
+### Database
+
+- MongoDB
+- Mongoose
+
+### Authentication
+
+- NextAuth.js
+
+### Deployment
+
+- Vercel
+
+---
+
+## 📂 Project Structure
+
+```bash
+src/
+├── app/
+├── components/
+│   ├── auth/
+│   ├── charts/
+│   ├── dashboard/
+│   ├── landing/
+│   ├── providers/
+│   └── ui/
+├── lib/
+├── models/
+└── types/
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/hadialhamza/web-development-bootcamp-may-2026.git
+```
+
+---
+
+### 2. Navigate Into Project
+
+```bash
+cd web-development-bootcamp-may-2026
+```
+
+---
+
+### 3. Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### 4. Configure Environment Variables
+
+Create a `.env.local` file:
+
+```env
+MONGODB_URI=your_mongodb_uri
+
+AUTH_SECRET=your_auth_secret
+
+AUTH_GOOGLE_ID=your_google_client_id
+AUTH_GOOGLE_SECRET=your_google_client_secret
+```
+
+---
+
+### 5. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌐 Live Project
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+👉 https://spend-sentry1.vercel.app/
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📈 Project Goals
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project was built as part of a web development bootcamp evaluation task with the goal of demonstrating:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Full-stack development skills
+- UI/UX understanding
+- Component architecture
+- Authentication handling
+- Database integration
+- Clean code structure
+- Responsive frontend engineering
+- Real-world dashboard implementation
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🔮 Future Improvements
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Optional features planned for future development:
+
+- AI expense insights
+- Smart budgeting assistant
+- Export reports (PDF/CSV)
+- Recurring transactions
+- Multi-device sync
+- Notification system
+- Advanced financial analytics
+- PWA support
+
+---
+
+## 👨💻 Developer
+
+### Hamza
+
+Frontend Web Developer  
+React • Next.js • MERN Stack
+
+- GitHub: https://github.com/hadialhamza
+
+---
+
+## 📄 License
+
+This project is built for educational and portfolio purposes.

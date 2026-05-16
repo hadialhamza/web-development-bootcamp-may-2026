@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import FeaturesContent from "@/components/landing/features/FeaturesContent";
+
+export const metadata: Metadata = {
+  title: "Features",
+};
 
 export default function FeaturesPage() {
   return (
