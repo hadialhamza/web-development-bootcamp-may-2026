@@ -20,8 +20,8 @@ import Logo from "@/components/ui/Logo";
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { label: "Transactions", href: "/dashboard/transactions", icon: ArrowLeftRight },
+  { label: "Analytics", href: "/dashboard/analytics", icon: BarChart3 },
   { label: "Budgets", href: "/dashboard/budgets", icon: PieChart },
-  { label: "Reports", href: "/dashboard/reports", icon: BarChart3 },
   { label: "Goals", href: "/dashboard/goals", icon: Target },
   { label: "Settings", href: "/dashboard/settings", icon: Settings },
 ];

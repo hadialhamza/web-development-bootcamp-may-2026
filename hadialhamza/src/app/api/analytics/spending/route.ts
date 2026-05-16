@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/auth";
 import dbConnect from "@/lib/db";
 import Transaction from "@/models/Transaction";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || !session.user?.id) {
@@ -13,7 +13,16 @@ export async function GET() {
 
     await dbConnect();
 
-    const months = Array.from({ length: 6 }, (_, i) => {
+    const { searchParams } = new URL(req.url);
+    const range = searchParams.get("range") || "6m";
+
+    let monthsToFetch = 6;
+    if (range === "3m") monthsToFetch = 3;
+    if (range === "1y") monthsToFetch = 12;
+    if (range === "30d") monthsToFetch = 1;
+    if (range === "7d") monthsToFetch = 1;
+
+    const months = Array.from({ length: monthsToFetch }, (_, i) => {
       const now = new Date();
       const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
       

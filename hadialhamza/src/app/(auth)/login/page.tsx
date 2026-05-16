@@ -54,7 +54,7 @@ export default function LoginPage() {
         router.push("/dashboard");
         router.refresh();
       }
-    } catch (error) {
+    } catch {
       customToast.error(
         "Unexpected Error",
         "Please check your connection and try again.",

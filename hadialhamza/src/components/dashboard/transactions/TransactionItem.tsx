@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { formatCurrency } from "@/lib/currency";
 import { cn } from "@/lib/utils";
 import { CategoryIcon } from "@/components/ui/CategoryIcon";
