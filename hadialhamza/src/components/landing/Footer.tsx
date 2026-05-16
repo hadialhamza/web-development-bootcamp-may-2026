@@ -10,27 +10,14 @@ const footerLinks = [
   {
     title: "Product",
     links: [
-      { label: "Features", href: "#features" },
-      { label: "Analytics", href: "#analytics" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "Security", href: "#" },
+      { label: "Features", href: "/features" },
+      { label: "Analytics", href: "/analytics" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About Us", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Contact", href: "#" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "#" },
-      { label: "Terms of Service", href: "#" },
-      { label: "Cookie Policy", href: "#" },
+      { label: "About Us", href: "/about-us" },
     ],
   },
 ];

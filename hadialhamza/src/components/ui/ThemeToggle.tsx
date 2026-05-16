@@ -20,7 +20,14 @@ export function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="h-10 w-10" aria-hidden="true" />;
+    return (
+      <Button
+        variant="icon"
+        className="relative h-10 w-10 overflow-hidden opacity-0"
+        disabled
+        aria-hidden="true"
+      />
+    );
   }
 
   const isDark = resolvedTheme === "dark";

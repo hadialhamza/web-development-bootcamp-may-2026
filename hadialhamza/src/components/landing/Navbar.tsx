@@ -14,9 +14,9 @@ import UserDropdown from "@/components/ui/UserDropdown";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/" },
-  { label: "Features", href: "/#features" },
-  { label: "Analytics", href: "/#analytics" },
-  { label: "Pricing", href: "/#pricing" },
+  { label: "Features", href: "/features" },
+  { label: "Analytics", href: "/analytics" },
+  { label: "About Us", href: "/about-us" },
 ];
 
 export default function Navbar() {

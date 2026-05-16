@@ -19,16 +19,19 @@ export default function NavLink({
   onClick,
 }: NavLinkProps) {
   const pathname = usePathname();
-  const isActive = pathname === href || (href !== "/" && pathname.startsWith(href));
+  const isActive =
+    pathname === href || (href !== "/" && pathname.startsWith(href));
 
   return (
     <Link
       href={href}
       onClick={onClick}
       className={cn(
-        "relative py-2 text-sm font-medium transition-colors duration-200",
-        isActive ? "text-primary" : "text-muted-foreground hover:text-foreground",
-        className
+        "relative text-sm font-medium transition-colors duration-200",
+        isActive
+          ? "text-primary"
+          : "text-muted-foreground hover:text-foreground",
+        className,
       )}
     >
       {children}
